@@ -27,6 +27,7 @@
 
 #include <boost/chrono.hpp>
 
+
 namespace neurala::plug::ws
 {
 Server::Server(const std::string_view ipAddress,
@@ -94,6 +95,7 @@ Server::session(tcp::socket&& socket)
 		while (m_running)
 		{
 			handleRequest(stream);
+			
 		}
 	}
 	catch (const beast::system_error& se)
@@ -119,7 +121,7 @@ Server::handleRequest(WebSocketStream& stream)
 	parser jsonParser;
 	jsonParser.write(reinterpret_cast<const char*>(readBuffer.data()), readBuffer.size());
 	value requestValue = jsonParser.release();
-
+	std::cout << "Received request:\n" << boost::json::serialize(requestValue) << '\n';
 	object& requestObject{requestValue.as_object()};
 	const string& requestType{requestObject.at("request").as_string()};
 	const RequestHandler& handler{

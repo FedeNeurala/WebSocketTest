@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.17.0)
 # marks debug dlls
 set(CMAKE_DEBUG_POSTFIX _d)
 
-option(NEURALA_BUILD_PLUGIN_WEBSOCKET "Video Source/Sink for websocket" OFF)
+option(NEURALA_BUILD_PLUGIN_WEBSOCKET "Video Source/Sink for websocket" ON)
 option(NEURALA_BUILD_PLUGIN_CMS "Video Source/Sink for Silios cameras (REQUIRES Silios CMS)" OFF)
 
 # Check Conan version and get Conan center local name

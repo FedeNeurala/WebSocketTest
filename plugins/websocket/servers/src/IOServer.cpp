@@ -43,6 +43,7 @@ IOServer::IOServer(const std::string_view ipAddress, const std::uint16_t port)
    m_metadata{"uint8", 800, 600, "RGB", "planar", "topLeft"}
 { }
 
+
 void
 IOServer::handleMetadata(WebSocketStream& stream)
 {
@@ -54,6 +55,7 @@ IOServer::handleMetadata(WebSocketStream& stream)
 	md["layout"] = m_metadata.layout.data();
 	md["orientation"] = m_metadata.orientation.data();
 	stream.write(net::buffer(serialize(md)));
+	std::cout << "object:\n" << serialize(md) << '\n';
 }
 
 void
@@ -63,7 +65,11 @@ IOServer::handleFrame(WebSocketStream& stream)
 	                                    * m_metadata.colorSpace.size());
 	static std::uint8_t init{}; // make every frame slightly different
 	std::iota(begin(frameData), end(frameData), ++init);
+
 	stream.write(net::buffer(frameData));
+	//for (auto i: frameData)
+    	//{std::cout << i << ' ';}
+	std::cout << "picture sent\n";
 }
 
 void
